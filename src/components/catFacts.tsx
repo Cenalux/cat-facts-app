@@ -5,12 +5,15 @@ import { useState } from "react";
 import useFetchCatFacts from ".././hooks/useFetchCatFacts";
 import useFetchCatPictures from ".././hooks/useFetchCatPictures";
 
-export default function CatFacts() {
-    const [favorites, setFavorites] = useState();
+export default function CatFacts({ favorites, setFavorites }) {
     const [count, setCount] = useState(1);
     const { catFact, catFactsLoading, catFactsError } = useFetchCatFacts();
-    const { catPicture, catPictureLoading, catPictureError, refetch } =
+    const { catPicture, catPictureLoading, catPictureError, refetch, id } =
         useFetchCatPictures();
+
+    console.log("pic", catPicture);
+
+    console.log("fav", favorites);
 
     return (
         <div className="bg-gray-50 p-2.5 h-screen w-full">
@@ -42,12 +45,18 @@ export default function CatFacts() {
                     </div>
                     <div className="flex flex-col w-full h-full mt-5">
                         <div className="flex flex-row mb-5">
-                            <BtnsLikeDislike />
+                            <BtnsLikeDislike
+                                like={id}
+                                fact={catFact}
+                                setFavorites={setFavorites}
+                                favorites={favorites}
+                            />
                         </div>
                         <div>
                             <NextPrevButtons
                                 updateCount={setCount}
                                 countState={count}
+                                id={id}
                                 refetch={refetch}
                             />
                         </div>

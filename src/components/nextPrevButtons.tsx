@@ -1,9 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-// import useFetchCatPictures from ".././hooks/useFetchCatPictures";
 
 export default function NextPrevButtons({ updateCount, countState, refetch }) {
-    // const { refetch } = useFetchCatPictures();
-
     const handleClick = (e) => {
         if (e === "next") {
             updateCount((prev) => {

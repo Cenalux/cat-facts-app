@@ -1,7 +1,7 @@
-export default function Favorites() {
+export default function Favorites({ favorites }) {
     return (
         <div>
-            <p>Favorites(0)</p>
+            <p>Favorites: {favorites.length}</p>
         </div>
     );
 }
