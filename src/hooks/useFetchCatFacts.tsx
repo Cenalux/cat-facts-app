@@ -1,24 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export default function useFetchCatFacts() {
     const [catFact, setCatFact] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
-    useEffect(() => {
-        const fetchCatFacts = async () => {
-            try {
-                const res = await fetch("https://catfact.ninja/fact");
-                const data = await res.json();
-                setCatFact(data.fact);
-            } catch (err) {
-                setError(err);
-            }
-            setLoading(false);
-        };
-
-        fetchCatFacts();
+    const fetchCatFacts = useCallback(async () => {
+        setLoading(true);
+        try {
+            // await new Promise((res) => setTimeout(res, 2000));
+            const res = await fetch("https://catfact.ninja/fact");
+            const data = await res.json();
+            setCatFact(data.fact);
+        } catch (err) {
+            setError(err);
+        }
+        setLoading(false);
     }, []);
 
-    return { catFact, loading, error };
+    useEffect(() => {
+        fetchCatFacts();
+    }, [fetchCatFacts]);
+
+    return {
+        catFact,
+        catFactsLoading: loading,
+        catFactsError: error,
+        refetchFact: fetchCatFacts,
+    };
 }

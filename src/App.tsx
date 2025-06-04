@@ -1,16 +1,17 @@
 import "./App.css";
-import { useState } from "react";
+
 import Header from "./components/header";
 import CatFacts from "./components/catFacts";
+import { useFavorites } from "./context/FavoritesContext";
 
 function App() {
-    const [favorites, setFavorites] = useState([]);
+    const { favorites, setFavorites } = useFavorites();
 
     return (
-        <>
+        <div>
             <Header favorites={favorites} />
             <CatFacts favorites={favorites} setFavorites={setFavorites} />
-        </>
+        </div>
     );
 }
 

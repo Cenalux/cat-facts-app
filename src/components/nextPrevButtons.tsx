@@ -1,6 +1,12 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function NextPrevButtons({ updateCount, countState, refetch }) {
+export default function NextPrevButtons({
+    updateCount,
+    countState,
+    refetch,
+    refetchFact,
+    setClicked,
+}) {
     const handleClick = (e) => {
         if (e === "next") {
             updateCount((prev) => {
@@ -14,20 +20,24 @@ export default function NextPrevButtons({ updateCount, countState, refetch }) {
                 return decrement;
             });
         }
+        refetch();
+        refetchFact();
+        setClicked(false);
     };
+
+    // TODO: implement swipe
 
     return (
         <div className="flex justify-between items-center px-2.5 w-full text-gray-300 h-full">
             <button>
-                <ChevronLeft onClick={() => handleClick("prev")} />
+                {/* <ChevronLeft onClick={() => handleClick("prev")} /> */}
             </button>
-            <p className="text-xs">Swipe or us buttons</p>
-            <button>
+            <button className="border rounded-2xl bg-gray-300 p-1 m-2">
                 <ChevronRight
                     onClick={() => {
                         handleClick("next");
-                        refetch();
                     }}
+                    className="text-white"
                 />
             </button>
         </div>
